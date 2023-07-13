@@ -1,5 +1,5 @@
-# Macro Language
+# Macro Script
 
-simple langage for creating macros
+simple proggram for creating macros
 
 note 0,0 for where your cursor is, is top left
