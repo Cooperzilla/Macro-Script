@@ -38,7 +38,7 @@ proc mouseup*() =
 
     SendInput(inputs, input, cast[int32](sizeof(INPUT)))
 
-proc click*(num: int32) =
+proc click*(num: int) =
     for i in 0..num:
         mousedown()
         mouseup()
@@ -86,7 +86,7 @@ proc rmouseup*() =
 
     SendInput(inputs, input, cast[int32](sizeof(INPUT)))
 
-proc rclick*(num: int32) =
+proc rclick*(num: int) =
     for i in 0..num:
         rmousedown()
         rmouseup()
@@ -143,7 +143,7 @@ proc mmouseup*() =
 
     SendInput(inputs, input, cast[int32](sizeof(INPUT)))
 
-proc mclick*(num: int32) =
+proc mclick*(num: int) =
     for i in 0..num:
         mmousedown()
         mmouseup()
