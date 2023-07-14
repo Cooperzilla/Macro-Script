@@ -5,7 +5,18 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true
+        "**/Thumbs.db": true,
+        ".vscode": true,
+        "macroscript.exe": true,
+        "readme.md": true,
+        ".gitignore": true,
+        "broken.md": true
     },
-    "hide-files.files": []
+    "hide-files.files": [
+        ".vscode",
+        "macroscript.exe",
+        "readme.md",
+        ".gitignore",
+        "broken.md"
+    ]
 }

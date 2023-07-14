@@ -175,3 +175,17 @@ proc setaxis*(axis: string, value: int32) =
 
 proc center* =
     setpos(GetSystemMetrics(0), GetSystemMetrics(1))
+
+proc log*(text: string, file: string = "macro_log.txt") =
+    var log = open("macro_log.txt", fmAppend)
+    log.writeLine(text)
+
+proc clipboard*: string =
+    if OpenClipboard(0):
+        var
+            data = GetClipboardData(CF_TEXT)
+            text = cast[string](cast[char](GlobalLock(data)))
+        GlobalUnlock(data)
+        CloseClipboard()
+
+        return text

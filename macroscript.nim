@@ -1,16 +1,19 @@
 import funcs, utils, strutils, tables
 
 var 
-    autumate = splitLines(readFile("macro.macro"), false)
+    autumate = splitLines(readFile("macro.txt"), false)
     vars: Table[string, string]
 
 for i in autumate:
     var line: seq[string] = i.split("/")
 
-    if line[1].startsWith("$"):
-        line[1] = vars[line[1].replace("$", "")]
-    if line[2].startsWith("$"):
-        line[2] = vars[line[2].replace("$", "")]
+    if line.len > 1:
+        if line[1].startsWith("$"):
+            line[1] = vars[(line[1]).replace("$", "")]
+    if line.len > 2:
+        if line[2].startsWith("$"):
+            line[2] = vars[(line[2]).replace("$", "")]
+    
 
     case line[0]:
         of "setpos":
@@ -49,3 +52,10 @@ for i in autumate:
             hscroll(line[1].to32)
         of "var":
             vars[line[1]] = line[2]
+        of "log":
+            if line[1] == "clipboard":
+                line[1] = clipboard()
+            if line.len > 2:
+                log(line[1], line[2])
+            else:
+                log(line[1])
