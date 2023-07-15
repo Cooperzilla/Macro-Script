@@ -148,19 +148,6 @@ proc mclick*(num: int) =
         mmousedown()
         mmouseup()
 
-##proc keydown(key: string) = # WIP
-## var
-## input: INPUT
-## inputs: UINT = 1
-
-##input.type = INPUT_KEYBOARD
-## input.ki.wScan = key[0]
-## input.ki.dwFlags = KEYEVENTF_UNICODE
-## input.ki.time = 0
-## input.ki.dwExtraInfo = 0
-
-##SendInput(inputs, input, cast[int32](sizeof(INPUT)))
-
 proc setaxis*(axis: string, value: int32) =
     if axis == "x":
         var cords: POINT
@@ -179,11 +166,4 @@ proc log*(text: string, file: string = "macro_log.txt") =
     log.writeLine(text)
 
 proc clipboard*: string =
-    ##if OpenClipboard(0):
-        ##var
-            ##data = GetClipboardData(CF_TEXT)
-            ##text = cast[string](cast[char](GlobalLock(data)))
-        ##GlobalUnlock(data)
-        ##CloseClipboard()
-        ##return text
     return execProcess("powershell Get-Clipboard")
