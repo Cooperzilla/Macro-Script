@@ -1,4 +1,4 @@
-import winim, os
+import winim, os, utils, osproc
 
 proc setpos*(x: int32, y: int32) =
     SetCursorPos(x, y)
@@ -148,20 +148,18 @@ proc mclick*(num: int) =
         mmousedown()
         mmouseup()
 
-proc keydown(key: string) = # WIP
-    var
-        input: INPUT
-        inputs: UINT = 1
+##proc keydown(key: string) = # WIP
+## var
+## input: INPUT
+## inputs: UINT = 1
 
-    input.type = INPUT_KEYBOARD
-    input.mi.dx = 0
-    input.mi.dy = 0
-    input.mi.mouseData = 0
-    ##input.mi.dwFlags = KEYEV
-    input.mi.time = 0
-    input.mi.dwExtraInfo = 0
+##input.type = INPUT_KEYBOARD
+## input.ki.wScan = key[0]
+## input.ki.dwFlags = KEYEVENTF_UNICODE
+## input.ki.time = 0
+## input.ki.dwExtraInfo = 0
 
-    SendInput(inputs, input, cast[int32](sizeof(INPUT)))
+##SendInput(inputs, input, cast[int32](sizeof(INPUT)))
 
 proc setaxis*(axis: string, value: int32) =
     if axis == "x":
@@ -174,18 +172,18 @@ proc setaxis*(axis: string, value: int32) =
         setpos(cords.x, cords.y + value)
 
 proc center* =
-    setpos(GetSystemMetrics(0), GetSystemMetrics(1))
+    setpos(cast[int32](GetSystemMetrics(0) / 2), cast[int32](GetSystemMetrics(1) / 2))
 
 proc log*(text: string, file: string = "macro_log.txt") =
     var log = open("macro_log.txt", fmAppend)
     log.writeLine(text)
 
 proc clipboard*: string =
-    if OpenClipboard(0):
-        var
-            data = GetClipboardData(CF_TEXT)
-            text = cast[string](cast[char](GlobalLock(data)))
-        GlobalUnlock(data)
-        CloseClipboard()
-
-        return text
+    ##if OpenClipboard(0):
+        ##var
+            ##data = GetClipboardData(CF_TEXT)
+            ##text = cast[string](cast[char](GlobalLock(data)))
+        ##GlobalUnlock(data)
+        ##CloseClipboard()
+        ##return text
+    return execProcess("powershell Get-Clipboard")
