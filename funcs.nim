@@ -1,4 +1,4 @@
-import winim, os, utils, osproc
+import winim, os, osproc, math
 
 proc setpos*(x: int32, y: int32) =
     SetCursorPos(x, y)
@@ -172,7 +172,7 @@ proc setaxis*(axis: string, value: int32) =
         setpos(cords.x, cords.y + value)
 
 proc center* =
-    setpos(cast[int32](GetSystemMetrics(0) / 2), cast[int32](GetSystemMetrics(1) / 2))
+    setpos(cast[int32]((GetSystemMetrics(0) / 2).round.to_int), cast[int32]((GetSystemMetrics(1) / 2).round.to_int))
 
 proc log*(text: string, file: string = "macro_log.txt") =
     var log = open("macro_log.txt", fmAppend)
