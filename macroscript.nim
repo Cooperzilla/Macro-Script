@@ -1,21 +1,22 @@
 import funcs, utils, strutils, tables
 
-var 
-    autumate = splitLines(readFile("macro.txt"), false)
-    vars: Table[string, string]
+proc run(file: string) =
+    var
+        autumate = splitLines(readFile(file), false)
+        vars: Table[string, string]
 
-for i in autumate:
-    var line: seq[string] = i.split("/")
+    for i in autumate:
+        var line: seq[string] = i.split("/")
 
-    if line.len > 1:
-        if line[1].startsWith("$"):
-            line[1] = vars[(line[1]).replace("$", "")]
-    if line.len > 2:
-        if line[2].startsWith("$"):
-            line[2] = vars[(line[2]).replace("$", "")]
+        if line.len > 1:
+            if line[1].startsWith("$"):
+                line[1] = vars[(line[1]).replace("$", "")]
+        if line.len > 2:
+            if line[2].startsWith("$"):
+                line[2] = vars[(line[2]).replace("$", "")]
     
 
-    case line[0]:
+        case line[0]:
         of "setpos":
             setpos(line[1].to32, line[2].to32)
         of "movepos":
@@ -59,3 +60,7 @@ for i in autumate:
                 log(line[1], line[2])
             else:
                 log(line[1])
+        of "import":
+            run(line[1])
+
+run("macro.txt")
