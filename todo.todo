@@ -1,7 +1,7 @@
 fix:
     [X] Fix center
     [X] Fix clipboard
-    [] Fix type
+    [X] Fix type
 add:
     [X] Keyboard
     [] functions

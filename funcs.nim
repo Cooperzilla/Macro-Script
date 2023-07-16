@@ -1,4 +1,4 @@
-import winim, os, osproc, math, utils
+import winim, os, osproc, math, utils, strutils
 
 proc setpos*(x: int32, y: int32) =
     SetCursorPos(x, y)
@@ -193,16 +193,14 @@ proc press*(key: string) =
     keyup(key)
 
 proc typewords*(key: string) =
-    for i in cast[seq[string]](key):
-        try:
-            if i.iscap:
-                keydown("shift")
-                press(i)
-                keyup("shift")
-            else:
-                press(i)
-        except Exception:
-            press(i)
+    for i in key.items:
+        var t = $i
+        if t.iscap:
+            keydown("shift")
+            press(t)
+            keyup("shift")
+        else:
+            press(t)
 proc hotkey*(key: string, key2: string) =
     keydown(key)
     press(key2)
