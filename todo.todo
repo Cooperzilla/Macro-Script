@@ -2,7 +2,7 @@ fix:
     [X] Fix center
     [X] Fix clipboard
 add:
-    [] Keyboard
+    [X] Keyboard
     [] functions
     [] for
     [] while

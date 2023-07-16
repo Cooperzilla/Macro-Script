@@ -62,5 +62,15 @@ proc run(file: string) =
                 log(line[1])
         of "import":
             run(line[1])
+        of "keydown":
+            keydown(line[1])
+        of "keyup":
+            keyup(line[1])
+        of "press":
+            press(line[1])
+        of "type":
+            typewords(line[1])
+        of "hotkey":
+            hotkey(line[1], line[2])
 
 run("macro.txt")

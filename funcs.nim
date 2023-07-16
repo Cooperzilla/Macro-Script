@@ -1,4 +1,4 @@
-import winim, os, osproc, math
+import winim, os, osproc, math, utils
 
 proc setpos*(x: int32, y: int32) =
     SetCursorPos(x, y)
@@ -167,3 +167,43 @@ proc log*(text: string, file: string = "macro_log.txt") =
 
 proc clipboard*: string =
     return execProcess("powershell Get-Clipboard")
+
+proc keydown*(key: string) =
+    var t: INPUT
+    t.type = INPUT_KEYBOARD
+    t.ki.wScan = 0
+    t.ki.time = 0
+    t.ki.dwExtraInfo = 0
+    t.ki.wVk = getid(key)
+    t.ki.dwFlags = 0
+    SendInput(1, t, cast[int32](sizeof(t)))
+
+proc keyup*(key: string) =
+    var t: INPUT
+    t.type = INPUT_KEYBOARD
+    t.ki.wScan = 0
+    t.ki.time = 0
+    t.ki.dwExtraInfo = 0
+    t.ki.wVk = getid(key)
+    t.ki.dwFlags = 0x0002
+    SendInput(1, t, cast[int32](sizeof(t)))
+
+proc press*(key: string) =
+    keydown(key)
+    keyup(key)
+
+proc typewords*(key: string) =
+    for i in cast[seq[string]](key):
+        try:
+            if i.iscap:
+                keydown("shift")
+                press(i)
+                keyup("shift")
+            else:
+                press(i)
+        except Exception:
+            press(i)
+proc hotkey*(key: string, key2: string) =
+    keydown(key)
+    press(key2)
+    keyup(key)
