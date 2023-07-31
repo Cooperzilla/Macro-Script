@@ -1,4 +1,4 @@
-import funcs, utils, strutils, tables
+import strutils, tables, nimautogui, nimautogui/utils
 
 proc run(file: string) =
     var
